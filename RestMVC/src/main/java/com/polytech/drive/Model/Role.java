@@ -11,16 +11,15 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name="role_id")
+    private Integer id;
+    private String authority;
 
-    @Column(unique = true)
-    private String name;
+//    @ManyToMany(mappedBy = "roles")
+//    private List<User> users = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users = new ArrayList<>();
-
-    public Role(String name) {
-        this.name = name;
+    public Role(String authority) {
+        this.authority = authority;
     }
 
     public Role() {
@@ -33,11 +32,11 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return name;
+        return authority;
     }
 
     @Override
     public String toString() {
-        return String.format("Role [id = %d; name = %s;]", id, name);
+        return String.format("Role [id = %d; name = %s;]", id, authority);
     }
 }

@@ -34,10 +34,24 @@ public class User implements UserDetails {
     @NotNull
     private String password;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles")
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="user_role_function",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="role_id")}
+    )
     private Set<Role> roles = new HashSet<>();
 
+    public User() {
+    }
+
+    public User(Long id, @NotNull String username, @NotNull String email, @NotNull String password, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
