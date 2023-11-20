@@ -1,10 +1,11 @@
 package com.polytech.drive.Repository;
 
-import com.polytech.drive.Model.User;
+
+import com.polytech.drive.Model.Userr;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
+public interface UserRepository extends JpaRepository<Userr, Long> {
+    Optional<Userr> findByEmail(String email);
 }

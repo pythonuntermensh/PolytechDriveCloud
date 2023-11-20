@@ -1,22 +1,19 @@
 package com.polytech.drive.Model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
-public class User implements UserDetails {
+public class Userr implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,10 +39,10 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public User() {
+    public Userr() {
     }
 
-    public User(Long id, @NotNull String username, @NotNull String email, @NotNull String password, Set<Role> roles) {
+    public Userr(Long id, @NotNull String username, @NotNull String email, @NotNull String password, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.email = email;

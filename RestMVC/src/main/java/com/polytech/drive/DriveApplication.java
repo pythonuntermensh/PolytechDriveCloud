@@ -1,7 +1,7 @@
 package com.polytech.drive;
 
 import com.polytech.drive.Model.Role;
-import com.polytech.drive.Model.User;
+import com.polytech.drive.Model.Userr;
 import com.polytech.drive.Repository.RoleRepository;
 import com.polytech.drive.Repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -29,7 +29,7 @@ public class DriveApplication {
 			Set<Role> roles = new HashSet<>();
 			roles.add(adminRole);
 
-			User admin = new User(1L, "admin","admin", passwordEncode.encode("password"), roles);
+			Userr admin = new Userr(1L, "admin","admin", passwordEncode.encode("password"), roles);
 
 			userRepository.save(admin);
 		};
