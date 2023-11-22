@@ -14,10 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
-public class DriveApplication {
+public class RestMVCApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DriveApplication.class, args);
+		SpringApplication.run(RestMVCApplication.class, args);
 	}
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncode){
