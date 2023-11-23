@@ -8,20 +8,41 @@ services:
     networks:
       - rest
     ports:
-      - '5432'
-  app:
+      - '5432:5432'
+  rest-mvc:
     image: 'docker-rest-mvc:latest'
     build:
       context: .
     ports:
-      - '8080'
+      - '8080:8080'
     networks:
       - rest
-    container_name: app
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
     depends_on:
       - postgres
 
+  osd:
+    image: 'scality/s3server:latest'
+    environment:
+      - ACCESS_KEY=accessKey
+      - SECRET_KEY=secretKey
+      - STORAGE_TYPE=aws_s3
+    ports:
+      - '5000:8000'
+    networks:
+      - storage
+  storage-api:
+    image: 'docker-storage-api:latest'
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    networks:
+      - storage
+    depends_on:
+      - osd
+
 networks:
   rest:
+  storage:
