@@ -1,4 +1,4 @@
-package com.polytech.drive.Model;
+package com.polytech.drive.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Data
-public class Userr implements UserDetails {
+public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,12 +37,12 @@ public class Userr implements UserDetails {
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="role_id")}
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
-    public Userr() {
+    public UserEntity() {
     }
 
-    public Userr(Long id, @NotNull String username, @NotNull String email, @NotNull String password, Set<Role> roles) {
+    public UserEntity(Long id, @NotNull String username, @NotNull String email, @NotNull String password, Set<RoleEntity> roles) {
         this.id = id;
         this.username = username;
         this.email = email;

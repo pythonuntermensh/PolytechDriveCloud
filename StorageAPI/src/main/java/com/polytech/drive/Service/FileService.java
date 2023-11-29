@@ -29,16 +29,6 @@ public class FileService {
     @Value("${s3.bucket.name}")
     private String s3BucketName;
 
-    private File convertMultiPartFileToFile(final MultipartFile multipartFile) {
-        final File file = new File(multipartFile.getOriginalFilename());
-        try (final FileOutputStream outputStream = new FileOutputStream(file)) {
-            outputStream.write(multipartFile.getBytes());
-        } catch (IOException e) {
-            LOG.error("Error {} occurred while converting the multipart file", e.getLocalizedMessage());
-        }
-        return file;
-    }
-
     public void createBucket(String s3BucketName) {
         if (amazonS3.doesBucketExistV2(s3BucketName)) {
             LOG.warn("Bucket with this name already exists. Try another one");
@@ -47,33 +37,15 @@ public class FileService {
         amazonS3.createBucket(s3BucketName);
     }
 
-    @Async
     public List<String> findAll() {
         ObjectListing objectListing = amazonS3.listObjects(s3BucketName);
         List<S3ObjectSummary> s3ObjectSummaryList = objectListing.getObjectSummaries();
         return s3ObjectSummaryList.stream().map(S3ObjectSummary::getKey).toList();
     }
 
-    @Async
     public S3ObjectInputStream findByName(String fileName) {
         LOG.info("Downloading file with name {}", fileName);
         return amazonS3.getObject(s3BucketName, fileName).getObjectContent();
-    }
-
-    @Async
-    public void save(final MultipartFile multipartFile, LocalDateTime timestamp) {
-        try {
-            final File file = convertMultiPartFileToFile(multipartFile);
-            final String fileName = timestamp + "_" + file.getName();
-            LOG.info("Uploading file with name {}", fileName);
-            final PutObjectRequest putObjectRequest = new PutObjectRequest(s3BucketName, fileName, file);
-            amazonS3.putObject(putObjectRequest);
-            Files.delete(file.toPath());
-        } catch (AmazonServiceException e) {
-            LOG.error("Error {} occurred while uploading file", e.getLocalizedMessage());
-        } catch (IOException ex) {
-            LOG.error("Error {} occurred while deleting temporary file", ex.getLocalizedMessage());
-        }
     }
 
     @Async

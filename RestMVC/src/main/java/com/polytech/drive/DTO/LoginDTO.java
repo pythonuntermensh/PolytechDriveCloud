@@ -1,26 +1,26 @@
 package com.polytech.drive.DTO;
 
-import com.polytech.drive.Model.Userr;
+import com.polytech.drive.Entity.UserEntity;
 
 public class LoginDTO {
-    private Userr userr;
+    private UserEntity user;
     private String jwt;
 
     public LoginDTO(){
         super();
     }
 
-    public LoginDTO(Userr userr, String jwt){
-        this.userr = userr;
+    public LoginDTO(UserEntity user, String jwt){
+        this.user = user;
         this.jwt = jwt;
     }
 
-    public Userr getUserr() {
-        return userr;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserr(Userr userr) {
-        this.userr = userr;
+    public void setUser(UserEntity userr) {
+        this.user = userr;
     }
 
     public String getJwt() {

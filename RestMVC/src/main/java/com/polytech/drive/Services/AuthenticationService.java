@@ -1,8 +1,8 @@
 package com.polytech.drive.Services;
 
 import com.polytech.drive.DTO.LoginDTO;
-import com.polytech.drive.Model.Role;
-import com.polytech.drive.Model.Userr;
+import com.polytech.drive.Entity.RoleEntity;
+import com.polytech.drive.Entity.UserEntity;
 import com.polytech.drive.Repository.RoleRepository;
 import com.polytech.drive.Repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -35,16 +35,16 @@ public class AuthenticationService {
     @Autowired
     private TokenService tokenService;
 
-    public Userr registerUser(String email, String username, String password){
+    public UserEntity registerUser(String email, String username, String password){
 
         String encodedPassword = passwordEncoder.encode(password);
-        Role userRole = roleRepository.findByAuthority("USER").get();
+        RoleEntity userRole = roleRepository.findByAuthority("USER").get();
 
-        Set<Role> authorities = new HashSet<>();
+        Set<RoleEntity> authorities = new HashSet<>();
 
         authorities.add(userRole);
 
-        return userRepository.save(new Userr(0L, username, email, encodedPassword, authorities));
+        return userRepository.save(new UserEntity(0L, username, email, encodedPassword, authorities));
     }
 
     public LoginDTO loginUser(String email, String password){

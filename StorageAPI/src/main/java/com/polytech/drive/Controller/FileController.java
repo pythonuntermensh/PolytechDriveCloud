@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Map;
 
 @RestController
@@ -36,12 +37,6 @@ public class FileController {
     @GetMapping("/all")
     public ResponseEntity<Object> findAll() {
         return ResponseEntity.ok(fileService.findAll());
-    }
-
-    @PostMapping
-    public ResponseEntity<Object> save(@RequestParam("file") MultipartFile multipartFile) {
-        fileService.save(multipartFile, LocalDateTime.now());
-        return new ResponseEntity<>(MESSAGE_1, HttpStatus.OK);
     }
 
     @DeleteMapping

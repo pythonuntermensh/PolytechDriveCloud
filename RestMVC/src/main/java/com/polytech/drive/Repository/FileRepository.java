@@ -1,7 +1,7 @@
 package com.polytech.drive.Repository;
 
-import com.polytech.drive.Model.File;
+import com.polytech.drive.Entity.FileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FileRepository extends JpaRepository<File, Long> {
+public interface FileRepository extends JpaRepository<FileEntity, Long> {
 }

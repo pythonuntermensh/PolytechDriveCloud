@@ -2,7 +2,7 @@ package com.polytech.drive.Controller;
 
 import com.polytech.drive.DTO.LoginDTO;
 import com.polytech.drive.DTO.RegistrationDTO;
-import com.polytech.drive.Model.Userr;
+import com.polytech.drive.Entity.UserEntity;
 import com.polytech.drive.Services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public Userr registerUser(@RequestBody RegistrationDTO body){
+    public UserEntity registerUser(@RequestBody RegistrationDTO body){
         return authenticationService.registerUser(body.getEmail(), body.getUsername(), body.getPassword());
     }
 
