@@ -58,7 +58,7 @@ services:
     build:
       context: .
     ports:
-      - '3000:3000'
+      - '4343:4343'
     networks:
       - storage
     depends_on:

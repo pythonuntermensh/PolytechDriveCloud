@@ -1,6 +1,6 @@
 package com.polytech.drive.Controller;
 
-import com.polytech.drive.DTO.FileSendDTO;
+import com.polytech.drive.DTO.FileDTO;
 import com.polytech.drive.Service.Producer.FileProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class FileController {
     @PostMapping
     public ResponseEntity<?> save(@RequestParam("file") MultipartFile multipartFile) {
         File file = convertMultiPartFileToFile(multipartFile);
-        fileProducer.sendFile(new FileSendDTO(file, LocalDateTime.now()).toString());
+        fileProducer.sendFile(new FileDTO(file, LocalDateTime.now()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
