@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 
 @Controller
@@ -36,10 +37,15 @@ public class FileController {
 
     private File convertMultiPartFileToFile(final MultipartFile multipartFile) {
         final File file = new File(multipartFile.getOriginalFilename());
-        try (final FileOutputStream outputStream = new FileOutputStream(file)) {
-            outputStream.write(multipartFile.getBytes());
+        try (final FileOutputStream outputStream = new FileOutputStream(file);
+             final InputStream inputStream = multipartFile.getInputStream()) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
         } catch (IOException e) {
-            //LOG.error("Error {} occurred while converting the multipart file", e.getLocalizedMessage());
+            // LOG.error("Error {} occurred while converting the multipart file", e.getLocalizedMessage());
         }
         return file;
     }
