@@ -1,11 +1,21 @@
 package com.polytech.drive.Service.Producer;
 
 import com.polytech.drive.DTO.FileDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class FileProducer {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FileProducer.class);
     private final KafkaTemplate<String, Object> template;
 
     public FileProducer(KafkaTemplate<String, Object> template) {
@@ -14,5 +24,20 @@ public class FileProducer {
 
     public void sendFile(FileDTO file) {
         template.send("files-save-topic", file);
+    }
+
+    public File convertMultiPartFileToFile(final MultipartFile multipartFile) {
+        final File file = new File(multipartFile.getOriginalFilename());
+        try (final FileOutputStream outputStream = new FileOutputStream(file);
+             final InputStream inputStream = multipartFile.getInputStream()) {
+            byte[] buffer = new byte[4194304];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+           LOG.error("Error {} occurred while converting the multipart file", e.getLocalizedMessage());
+        }
+        return file;
     }
 }

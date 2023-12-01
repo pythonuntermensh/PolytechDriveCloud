@@ -3,7 +3,7 @@ package com.polytech.drive.Controller;
 import com.polytech.drive.DTO.LoginDTO;
 import com.polytech.drive.DTO.RegistrationDTO;
 import com.polytech.drive.Entity.UserEntity;
-import com.polytech.drive.Services.AuthenticationService;
+import com.polytech.drive.Service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

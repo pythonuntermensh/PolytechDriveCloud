@@ -1,4 +1,4 @@
-package com.polytech.drive.Services;
+package com.polytech.drive.Service;
 
 import com.polytech.drive.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

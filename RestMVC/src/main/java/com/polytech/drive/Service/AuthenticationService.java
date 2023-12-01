@@ -1,4 +1,4 @@
-package com.polytech.drive.Services;
+package com.polytech.drive.Service;
 
 import com.polytech.drive.DTO.LoginDTO;
 import com.polytech.drive.Entity.RoleEntity;
@@ -19,7 +19,7 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class AuthenticationService {
+public class  AuthenticationService {
     @Autowired
     private UserRepository userRepository;
 

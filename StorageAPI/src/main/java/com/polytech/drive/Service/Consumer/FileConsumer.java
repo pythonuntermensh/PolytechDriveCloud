@@ -25,7 +25,7 @@ public class FileConsumer {
     @Value("${s3.bucket.name}")
     private String s3BucketName;
 
-    @KafkaListener(id = "files-consumers-group", topics = "files-save-topic", concurrency = "3")
+    @KafkaListener(id = "files-consumers-group", topics = "files-save-topic", concurrency = "10")
     public void save(FileDTO fileDTO) {
         try {
             File file = fileDTO.getFile();

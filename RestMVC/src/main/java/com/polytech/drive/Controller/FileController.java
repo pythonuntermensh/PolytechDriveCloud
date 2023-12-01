@@ -30,23 +30,8 @@ public class FileController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestParam("file") MultipartFile multipartFile) {
-        File file = convertMultiPartFileToFile(multipartFile);
+        File file = fileProducer.convertMultiPartFileToFile(multipartFile);
         fileProducer.sendFile(new FileDTO(file, LocalDateTime.now()));
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private File convertMultiPartFileToFile(final MultipartFile multipartFile) {
-        final File file = new File(multipartFile.getOriginalFilename());
-        try (final FileOutputStream outputStream = new FileOutputStream(file);
-             final InputStream inputStream = multipartFile.getInputStream()) {
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        } catch (IOException e) {
-            // LOG.error("Error {} occurred while converting the multipart file", e.getLocalizedMessage());
-        }
-        return file;
     }
 }

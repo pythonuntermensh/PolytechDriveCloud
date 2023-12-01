@@ -18,13 +18,4 @@ public class FileDTO implements Serializable {
         this.file = file;
         this.localDateTime = localDateTime;
     }
-
-//    @Override
-//    public String toString() {
-//        try {
-//            return localDateTime + ":::" + file.getName() + ":::" + Arrays.toString(Files.readAllBytes(file.toPath()));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

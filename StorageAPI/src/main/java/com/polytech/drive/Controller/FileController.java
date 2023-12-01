@@ -1,25 +1,16 @@
 package com.polytech.drive.Controller;
 
-import com.amazonaws.services.s3.model.ObjectListing;
 import com.polytech.drive.Service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.CacheControl;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/files")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class FileController {
-
-    private static final String MESSAGE_1 = "Uploaded the file successfully";
 
     @Autowired
     FileService fileService;
