@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 
 @Service
 public class FileProducer {
@@ -26,8 +27,8 @@ public class FileProducer {
         template.send("files-save-topic", file);
     }
 
-    public File convertMultiPartFileToFile(final MultipartFile multipartFile) {
-        final File file = new File(multipartFile.getOriginalFilename());
+    public File convertMultiPartFileToFile(final MultipartFile multipartFile, String tag) {
+        final File file = new File(tag + "_" + multipartFile.getOriginalFilename());
         try (final FileOutputStream outputStream = new FileOutputStream(file);
              final InputStream inputStream = multipartFile.getInputStream()) {
             byte[] buffer = new byte[4194304];

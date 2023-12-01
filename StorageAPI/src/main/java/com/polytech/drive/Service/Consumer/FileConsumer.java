@@ -30,9 +30,9 @@ public class FileConsumer {
         try {
             File file = fileDTO.getFile();
             LOG.info("Uploading file with name {}", file.getName());
-            final PutObjectRequest putObjectRequest = new PutObjectRequest(s3BucketName, file.getName() + ": " +  fileDTO.getLocalDateTime(), file);
+            final PutObjectRequest putObjectRequest = new PutObjectRequest(s3BucketName, file.getName(), file);
             amazonS3.putObject(putObjectRequest);
-            Files.delete(fileDTO.getFile().toPath());
+            Files.delete(file.toPath());
         } catch (AmazonServiceException e) {
             LOG.error("Error {} occurred while uploading file", e.getLocalizedMessage());
         } catch (IOException ex) {
