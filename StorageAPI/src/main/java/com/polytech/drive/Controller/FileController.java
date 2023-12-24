@@ -20,7 +20,7 @@ public class FileController {
         return ResponseEntity.ok(fileService.findAllByPrefix(prefix));
     }
 
-    @GetMapping()
+    @GetMapping("/get")
     public ResponseEntity<Object> findByName(@RequestParam("fileName") String fileName) {
         return ResponseEntity
                 .ok()

@@ -12,7 +12,7 @@ public class FileService {
     private FileRepository fileRepository;
 
     public void save(FileDTO file) {
-        FileEntity fileEntity = new FileEntity(file.getFile().getName(), file.getLocalDateTime());
+        FileEntity fileEntity = new FileEntity(file.getFile().getName(), file.getTimestamp().getLocalDateTime());
         fileRepository.save(fileEntity);
     }
 }

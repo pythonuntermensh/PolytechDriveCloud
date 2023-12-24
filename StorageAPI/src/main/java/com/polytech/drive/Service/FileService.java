@@ -28,6 +28,10 @@ public class FileService {
             LOG.warn("Bucket with this name already exists. Try another one");
             return;
         }
+        if (amazonS3.doesBucketExist(s3BucketName)) {
+            LOG.warn("Bucket with this name already exists. Try another one");
+            return;
+        }
         amazonS3.createBucket(s3BucketName);
     }
 

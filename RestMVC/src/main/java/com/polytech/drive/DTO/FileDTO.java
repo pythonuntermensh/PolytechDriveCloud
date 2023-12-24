@@ -11,11 +11,12 @@ import java.time.LocalDateTime;
 public class FileDTO implements Serializable {
     @NonNull
     private File file;
-    private LocalDateTime localDateTime;
+    @NonNull
+    private TimestampDTO timestamp;
 
     public FileDTO() {}
-    public FileDTO(@NonNull File file, LocalDateTime localDateTime) {
+    public FileDTO(@NonNull File file, @NonNull TimestampDTO timestamp) {
         this.file = file;
-        this.localDateTime = localDateTime;
+        this.timestamp = timestamp;
     }
 }

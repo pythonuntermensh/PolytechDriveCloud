@@ -1,6 +1,7 @@
 package com.polytech.drive.Service.Producer;
 
 import com.polytech.drive.DTO.FileDTO;
+import com.polytech.drive.DTO.TimestampDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class FileProducer {
@@ -27,8 +29,8 @@ public class FileProducer {
         template.send("files-save-topic", file);
     }
 
-    public File convertMultiPartFileToFile(final MultipartFile multipartFile, String tag) {
-        final File file = new File(tag + "_" + multipartFile.getOriginalFilename());
+    public File convertMultiPartFileToFile(final MultipartFile multipartFile, TimestampDTO timestamp) {
+        final File file = new File(timestamp.getLocalDateTimeInCorrectFormat() + "_" + multipartFile.getOriginalFilename());
         try (final FileOutputStream outputStream = new FileOutputStream(file);
              final InputStream inputStream = multipartFile.getInputStream()) {
             byte[] buffer = new byte[4194304];

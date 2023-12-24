@@ -18,6 +18,7 @@
 	<modules>
 		<module>RestMVC</module>
 		<module>StorageAPI</module>
+		<module>EurekaServer</module>
 	</modules>
 
 	<packaging>pom</packaging>
@@ -30,7 +31,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-parent</artifactId>
-				<version>3.1.5</version>
+				<version>3.2.0</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>

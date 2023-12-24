@@ -1,6 +1,7 @@
 package com.polytech.drive.Controller;
 
 import com.polytech.drive.DTO.FileDTO;
+import com.polytech.drive.DTO.TimestampDTO;
 import com.polytech.drive.Service.FileService;
 import com.polytech.drive.Service.Producer.FileProducer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,8 @@ public class FileController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestParam("file") MultipartFile multipartFile) {
-        LocalDateTime timestamp = LocalDateTime.now();
-        File file = fileProducer.convertMultiPartFileToFile(multipartFile, timestamp.toString());
+        TimestampDTO timestamp = new TimestampDTO(LocalDateTime.now());
+        File file = fileProducer.convertMultiPartFileToFile(multipartFile, timestamp);
 
         FileDTO fileDTO = new FileDTO(file, timestamp);
 
