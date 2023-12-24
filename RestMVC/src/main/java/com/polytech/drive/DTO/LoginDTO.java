@@ -19,8 +19,8 @@ public class LoginDTO {
         return user;
     }
 
-    public void setUser(UserEntity userr) {
-        this.user = userr;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public String getJwt() {

@@ -2,6 +2,7 @@ package com.polytech.drive.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
+import com.polytech.drive.Response.ListFileResponse;
 import org.apache.kafka.common.protocol.types.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +25,7 @@ public class FileService {
     private String s3BucketName;
 
     public void createBucket(String s3BucketName) {
-        if (amazonS3.doesBucketExistV2(s3BucketName)) {
-            LOG.warn("Bucket with this name already exists. Try another one");
-            return;
-        }
-        if (amazonS3.doesBucketExist(s3BucketName)) {
+        if (amazonS3.doesBucketExistV2(s3BucketName) || amazonS3.doesBucketExist(s3BucketName)) {
             LOG.warn("Bucket with this name already exists. Try another one");
             return;
         }
@@ -46,11 +43,11 @@ public class FileService {
         return amazonS3.getObject(s3BucketName, fileName).getObjectContent();
     }
 
-    public List<String> findAllByPrefix(String prefix) {
-        return amazonS3.listObjects(s3BucketName).getObjectSummaries().stream()
+    public ListFileResponse findAllByPrefix(String prefix) {
+        return new ListFileResponse(amazonS3.listObjects(s3BucketName).getObjectSummaries().stream()
                 .map(S3ObjectSummary::getKey)
                 .filter(key -> key.startsWith(prefix))
-                .toList();
+                .toList());
     }
 
 

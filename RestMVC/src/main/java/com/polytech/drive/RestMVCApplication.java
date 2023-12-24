@@ -4,7 +4,7 @@ import com.polytech.drive.Entity.RoleEntity;
 import com.polytech.drive.Entity.UserEntity;
 import com.polytech.drive.Repository.RoleRepository;
 import com.polytech.drive.Repository.UserRepository;
-import com.polytech.drive.Service.StorageApiClient;
+import com.polytech.drive.Client.StorageApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,8 +18,6 @@ import java.util.Set;
 @SpringBootApplication
 public class RestMVCApplication {
 
-	@Autowired
-	StorageApiClient storageApiClient;
 	public static void main(String[] args) {
 		SpringApplication.run(RestMVCApplication.class, args);
 	}
@@ -33,11 +31,9 @@ public class RestMVCApplication {
 			Set<RoleEntity> roles = new HashSet<>();
 			roles.add(adminRole);
 
-			UserEntity admin = new UserEntity(1L, "admin","admin", passwordEncode.encode("password"), roles);
+			UserEntity admin = new UserEntity("admin","admin", passwordEncode.encode("password"), roles);
 
 			userRepository.save(admin);
-
-			System.out.println(storageApiClient.findAll());
 		};
 	}
 }

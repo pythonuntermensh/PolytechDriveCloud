@@ -42,8 +42,7 @@ public class UserEntity implements UserDetails {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, @NotNull String username, @NotNull String email, @NotNull String password, Set<RoleEntity> roles) {
-        this.id = id;
+    public UserEntity(@NotNull String username, @NotNull String email, @NotNull String password, Set<RoleEntity> roles) {
         this.username = username;
         this.email = email;
         this.password = password;

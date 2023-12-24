@@ -43,8 +43,8 @@ public class  AuthenticationService {
         Set<RoleEntity> authorities = new HashSet<>();
 
         authorities.add(userRole);
-
-        return userRepository.save(new UserEntity(0L, username, email, encodedPassword, authorities));
+        System.out.println("NEW USER EOPTA");
+        return userRepository.save(new UserEntity(username, email, encodedPassword, authorities));
     }
 
     public LoginDTO loginUser(String email, String password){

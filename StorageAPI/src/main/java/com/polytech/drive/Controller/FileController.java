@@ -1,11 +1,18 @@
 package com.polytech.drive.Controller;
 
+import com.polytech.drive.Response.ListFileResponse;
 import com.polytech.drive.Service.FileService;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/files")
@@ -15,13 +22,21 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
+    @Value("${eureka.instance.instance-id}")
+    private String instanceId;
+
+    @Value("${server.port}")
+    private String port;
+
     @GetMapping()
-    public ResponseEntity<Object> findAllByEmail(@RequestParam("email") String prefix){
+    public ResponseEntity<ListFileResponse> findAllByEmail(@RequestParam("prefix") String prefix) {
+        System.out.println(instanceId);
+        System.out.println(port);
         return ResponseEntity.ok(fileService.findAllByPrefix(prefix));
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Object> findByName(@RequestParam("fileName") String fileName) {
+    public ResponseEntity<Resource> findByName(@RequestParam("fileName") String fileName) {
         return ResponseEntity
                 .ok()
                 .cacheControl(CacheControl.noCache())
@@ -31,7 +46,7 @@ public class FileController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Object> findAll() {
+    public ResponseEntity<List<String>> findAll() {
         return ResponseEntity.ok(fileService.findAll());
     }
 
