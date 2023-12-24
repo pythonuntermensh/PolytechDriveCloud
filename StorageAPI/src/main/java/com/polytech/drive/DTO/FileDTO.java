@@ -11,10 +11,13 @@ import java.time.LocalDateTime;
 public class FileDTO implements Serializable {
     @NonNull
     private File file;
+    @NonNull
     private LocalDateTime localDateTime;
+    @NonNull
+    private String email;
 
     public FileDTO() {}
-    public FileDTO(@NonNull File file, LocalDateTime localDateTime) {
+    public FileDTO(@NonNull File file, @NonNull LocalDateTime localDateTime) {
         this.file = file;
         this.localDateTime = localDateTime;
     }

@@ -29,8 +29,8 @@ public class FileConsumer {
     public void save(FileDTO fileDTO) {
         try {
             File file = fileDTO.getFile();
-            LOG.info("Uploading file with name {}", file.getName());
-            final PutObjectRequest putObjectRequest = new PutObjectRequest(s3BucketName, file.getName(), file);
+            LOG.info("Uploading file with name {}", fileDTO.getEmail() + file.getName());
+            final PutObjectRequest putObjectRequest = new PutObjectRequest(s3BucketName, fileDTO.getEmail() + "/" + file.getName(), file);
             amazonS3.putObject(putObjectRequest);
             Files.delete(file.toPath());
         } catch (AmazonServiceException e) {

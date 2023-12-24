@@ -13,9 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class FileController {
 
     @Autowired
-    FileService fileService;
+    private FileService fileService;
 
-    @GetMapping
+    @GetMapping()
+    public ResponseEntity<Object> findAllByEmail(@RequestParam("email") String prefix){
+        return ResponseEntity.ok(fileService.findAllByPrefix(prefix));
+    }
+
+    @GetMapping()
     public ResponseEntity<Object> findByName(@RequestParam("fileName") String fileName) {
         return ResponseEntity
                 .ok()
