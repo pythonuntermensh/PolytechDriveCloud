@@ -43,9 +43,8 @@ public class StorageApiClient {
     }
 
     public ResponseEntity<Object> findAll() {
-        ServiceInstance instance = getServiceInstance();
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
-                .fromHttpUrl(instance.getUri().toString() + "/api/v1/files/all");
+                .fromHttpUrl(storageApiUrl + "/api/v1/files/all");
         return restTemplate.getForEntity(uriComponentsBuilder.toUriString(), Object.class);
     }
 

@@ -36,7 +36,6 @@ public class FileController {
 
     private final StorageApiClient storageApiClient;
 
-    private final String url = "http://localhost:4343/api/v1/files";
     @Autowired
     public FileController(FileProducer fileProducer, FileService fileService, StorageApiClient storageApiClient){
         this.fileProducer = fileProducer;
